@@ -5,7 +5,7 @@ const bugContainer = (props) => {
 
     return (
         <React.Fragment>
-            <div>Bug stage works</div>
+            <div className="BugContainer">Bug container works {props.postion}</div>
         </React.Fragment>
     )
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BugStageClass from '../classes/BugStageClass'
-import BugContainer from './BugStage/BugContainer';
+import BugSpan from './BugSpan/BugSpan';
 
 class MainContainer extends Component {
     state = {
@@ -24,7 +24,7 @@ class MainContainer extends Component {
         }
         let bugStages = (
             this.state.BugStages.map((props, index) => {
-                return (<BugContainer></BugContainer>)
+                return (<BugSpan key={index} postion={props.pos}></BugSpan>)
             })
 
         )
