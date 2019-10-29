@@ -1,32 +1,49 @@
 import React, { Component } from 'react';
 import BugStageClass from '../classes/BugStageClass'
 import BugSpan from './BugSpan/BugSpan';
+import { throwStatement } from '@babel/types';
 
 class MainContainer extends Component {
     state = {
-        BugStages: []
+        BugSpans: []
     }
 
 
-    AddBugStage(BugStage) {
-        let currentBugStages = this.state.BugStages
+    AddBugStage(bugContainersInStage) {
+        let currentBugStages = this.state.BugSpans
         let columnPos = currentBugStages.length
-        currentBugStages.push({ bugStage: BugStage, pos: columnPos })
-        this.setState({ BugStages: currentBugStages })
+        currentBugStages.push({ pos: columnPos, bugContainersInStage: bugContainersInStage })
+        this.setState({ BugSpans: currentBugStages })
     }
+
+    onDragOverBugContainerHandler = (event) => {
+        event.preventDefault();
+    }
+
+    onDragBugStageHandler = (event) => {
+
+    }
+
 
     render() {
-        if (this.state.BugStages.length === 0) {
+        if (this.state.BugSpans.length === 0) {
             let BugStage1 = new BugStageClass();
-            this.AddBugStage(BugStage1)
             let BugStage2 = new BugStageClass();
-            this.AddBugStage(BugStage2)
+            this.AddBugStage([BugStage1, BugStage2])
+            this.AddBugStage([])
         }
         let bugStages = (
-            this.state.BugStages.map((props, index) => {
-                return (<BugSpan key={index} postion={props.pos}></BugSpan>)
+            this.state.BugSpans.map((props, index) => {
+                return (
+                    <BugSpan key={index}
+                        postion={props.pos}
+                        bugStages={props.bugContainersInStage}
+                        dragOverBugContainerHandler={this.onDragOverBugContainerHandler}
+                        dragBugStageHandler={this.onDragBugStageHandler}
+                    >
+                    </BugSpan>
+                )
             })
-
         )
 
         return (

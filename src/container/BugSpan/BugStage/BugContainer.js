@@ -5,7 +5,12 @@ const bugContainer = (props) => {
 
     return (
         <React.Fragment>
-            <div className="BugContainer">Bug container works {props.postion}</div>
+            <div draggable
+                onDragStart={event => props.DragBugStageHandler(event)}
+                className="BugContainer"
+            >
+                Bug container works {props.postion}
+            </div>
         </React.Fragment>
     )
 }
