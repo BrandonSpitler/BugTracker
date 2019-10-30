@@ -11,19 +11,19 @@ class MainContainer extends Component {
     }
 
 
-    AddBugContainer(bugContainersInStage) {
-        let currentBugStages = this.state.BugSpans
-        let columnPos = currentBugStages.length
-        currentBugStages.push({ pos: columnPos, bugContainersInStage: bugContainersInStage })
-        this.setState({ BugSpans: currentBugStages })
+    AddBugContainer(bugContainers) {
+        let currentBugSpans = this.state.BugSpans
+        let columnPos = currentBugSpans.length
+        currentBugSpans.push({ pos: columnPos, bugContainersInStage: bugContainers })
+        this.setState({ BugSpans: currentBugSpans })
     }
 
-    onDragOverBugContainerHandler = (event) => {
+    onDragOverBugContainerOverBugSpanHandler = (event) => {
         event.preventDefault();
         // console.log(event)
     }
 
-    onDragStageBugStageHandler = (event, bugContainerPos, bugSpanPos) => {
+    onDragBugContainerHandler = (event, bugContainerPos, bugSpanPos) => {
         this.setState(
             {
                 dragFromContainerIndex: bugContainerPos,
@@ -62,11 +62,11 @@ class MainContainer extends Component {
             this.state.BugSpans.map((props, index) => {
                 return (
                     <BugSpan key={props.pos}
-                        postion={props.pos}
+                        position={props.pos}
                         bugStages={props.bugContainersInStage}
-                        dragOverBugContainerHandler={this.onDragOverBugContainerHandler}
-                        dragBugStageHandler={this.onDragStageBugStageHandler}
-                        dropBugStageHandler={this.onDropBugStageHandler}
+                        dragOverBugContainerHandler={this.onDragOverBugContainerOverBugSpanHandler}
+                        dragBugContainerHandler={this.onDragBugContainerHandler}
+                        dropBugContainerHandler={this.onDropBugStageHandler}
                     >
                     </BugSpan>
                 )

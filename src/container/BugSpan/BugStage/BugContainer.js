@@ -8,12 +8,12 @@ const bugContainer = (props) => {
             <div draggable
                 onDragStart={
                     (event) => {
-                        props.DragBugStageHandler(event, props.BugContainerPos, props.BugSpanPos)
+                        props.DragBugContainerHandler(event, props.BugContainerPos, props.BugSpanPos)
                     }
                 }
                 className="BugContainer"
             >
-                Bug container works {props.postion}
+                Bug container works
             </div>
         </React.Fragment >
     )

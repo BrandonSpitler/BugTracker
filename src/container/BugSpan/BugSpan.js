@@ -9,9 +9,9 @@ class BugSpan extends Component {
         let bugStages = (
             this.props.bugStages.map((arg, index) => {
                 return (
-                    <BugContainer DragBugStageHandler={this.props.dragBugStageHandler}
+                    <BugContainer DragBugContainerHandler={this.props.dragBugContainerHandler}
                         BugContainerPos={index}
-                        BugSpanPos={this.props.postion}>
+                        BugSpanPos={this.props.position}>
                     </BugContainer>
                 )
             })
@@ -20,9 +20,9 @@ class BugSpan extends Component {
         return (
             <React.Fragment>
                 <div onDragOver={event => this.props.dragOverBugContainerHandler(event)}
-                    onDrop={event => this.props.dropBugStageHandler(event, this.props.postion)}
+                    onDrop={event => this.props.dropBugContainerHandler(event, this.props.position)}
                     className="BugSpan">
-                    <div>Position {this.props.postion}</div>
+                    <div>Position {this.props.position}</div>
                     {bugStages}
                 </div>
             </React.Fragment>
