@@ -1,6 +1,6 @@
 
 class BugClass {
 
-}
+};
 
-export default BugClass
+export default BugClass;

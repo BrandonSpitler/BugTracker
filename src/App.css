@@ -22,9 +22,26 @@
 }
 
 .BugSpan {
-  border: black;
-  border-style: solid;
   width: 100%;
   height: 200px;
+  border: black;
+  border-style: solid;
+
+}
+
+.ContainersBugStages {
+  border: black;
+  border-style: solid;
+  display: flex;
+  height: 100%;
+  align-items: stretch; 
+}
+
+
+.BugContainer {
+  border: black;
+  border-style: solid;
+  
+  position: relative;
 
 }
