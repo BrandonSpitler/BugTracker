@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import BugContainer from '../../container/BugSpan/BugStage/BugContainer';
 import BugContainerCnfg from './BugContainerCnfg';
-
+// todo add remove button
+// todo add key to bug container names
 class BugContainersCnfg extends Component {
     state = {
         bugContainers: []
@@ -31,7 +32,7 @@ class BugContainersCnfg extends Component {
         return (
             <div>
                 {bugContainers}
-                <button onClick={this.addBugContainerHandler}>
+                <button type="button" class="btn btn-primary" onClick={this.addBugContainerHandler}>
                     Add bugContainer
                 </button>
             </div >
