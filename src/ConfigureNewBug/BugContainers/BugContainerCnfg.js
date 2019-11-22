@@ -1,30 +1,25 @@
 import React, { Component } from 'react'
 import { Form, Field } from 'react-final-form'
 
+const bugContainerCnfg = (props) => {
 
-const bugType = props => {
-
-    const BugTypeSubmitHandler = (event) => {
-
-    }
     return (
         <div>
-            <Form onSubmit={BugTypeSubmitHandler}
+            <Form onSubmit={props.saveBugContainerCnfg}
                 render={({ handleSubmit, form, submitting, pristine, values }) => (
                     <form>
                         <Field
-                            name="workSpaceName"
+                            name="BugContainerName"
                             component="input"
                             type="text"
-                            placeholder="WorkspaceName"
+                            placeholder="Bug Container"
                         />
                     </form>
                 )
                 }>
             </Form>
         </div>
-
     )
 }
 
-export default bugType;
+export default bugContainerCnfg;
