@@ -1,22 +1,25 @@
 import React, { Component } from 'react'
+import { Form, Field } from 'react-final-form'
 
-class BugType extends Component {
-    state = {
-        BugContainers: []
+
+const bugType = props => {
+
+    const BugTypeSubmitHandler = (event) => {
+
     }
-    BugTypeSubmitHandler = (event) => {
+    return (
+        <div>
+            <Form onSubmit={BugTypeSubmitHandler}
+                render={({ handleSubmit, form, submitting, pristine, values }) => (
+                    <form>
+                        <div>Test</div>
+                    </form>
+                )
+                }>
+            </Form>
+        </div>
 
-    }
-
-    render() {
-
-
-        return (
-            <form onSubmit={this.BugTypeSubmitHandler}>
-
-            </form>
-        )
-    }
+    )
 }
 
-export default BugType;
+export default bugType;
