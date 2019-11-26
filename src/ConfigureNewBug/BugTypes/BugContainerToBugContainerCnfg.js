@@ -11,7 +11,7 @@ class BugContainerToBugContainerCnfg extends Component {
 
     AddSubContainer = (props) => {
         let subBugContainers = this.state.subBugContainers.slice();
-        subBugContainers.push();
+        subBugContainers.push({});
         this.setState(
             { subBugContainers: subBugContainers }
         );

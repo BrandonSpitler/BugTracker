@@ -45,3 +45,8 @@
   position: relative;
 
 }
+
+.Box {
+  border: black;
+  border-style: solid;
+}

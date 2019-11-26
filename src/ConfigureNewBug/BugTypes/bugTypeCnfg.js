@@ -3,11 +3,10 @@ import BugContainerToBugContainerCnfg from './BugContainerToBugContainerCnfg'
 
 const bugTypeCnfg = (props) => {
     return (
-        <form>
+        <div>
             <input defaultValue="Bug Type" type="text"></input>
-            <input defaultValue="Starting Containter" type="text"></input>
-            <BugContainerToBugContainerCnfg></BugContainerToBugContainerCnfg>
-        </form>
+            <div><BugContainerToBugContainerCnfg></BugContainerToBugContainerCnfg></div>
+        </div>
     )
 }
 

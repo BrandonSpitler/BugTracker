@@ -3,13 +3,21 @@ import React from 'react'
 
 const SubContainers = (props) => {
     let SubContainers = props.SubContainers.map((value, index) => {
-        return (<BugContainerToBugContainerCnfg></BugContainerToBugContainerCnfg>)
+        return (<li><BugContainerToBugContainerCnfg></BugContainerToBugContainerCnfg></li>)
     }
     );
+    let returnValue;
+    if (SubContainers.length > 0) {
+        returnValue = (
+            <ul className="Box">
+                {SubContainers}
+            </ul>
+        )
+    } else {
+        returnValue = (<div></div>)
+    }
     return (
-        <div>
-            {SubContainers}
-        </div>
+        returnValue
     )
 }
 
