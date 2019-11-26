@@ -4,7 +4,9 @@ import BugContainersCnfg from './BugContainers/BugContainersCnfg';
 import BugTypesCnfg from './BugTypes/BugTypesCnfg';
 
 class MainCnfgContainer extends Component {
-
+    state = {
+        BugContainersCnfg: []
+    }
     render() {
         return (
 
