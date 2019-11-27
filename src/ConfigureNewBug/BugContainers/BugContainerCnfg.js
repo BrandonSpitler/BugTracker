@@ -5,20 +5,14 @@ const bugContainerCnfg = (props) => {
 
     return (
         <div>
-            <Form onSubmit={props.saveBugContainerCnfg}
-                render={({ handleSubmit, form, submitting, pristine, values }) => (
-                    <form>
-                        <Field
-                            name="BugContainerName"
-                            component="input"
-                            type="text"
-                            placeholder="Bug Container"
-                        />
-                    </form>
-                )
-                }>
-            </Form>
+            <input
+                name="BugContainerName"
+                type="text"
+                defaultValue="Bug Container"
+                onChange={(event) => props.setBugContainerName(props.index, event.target.value)}
+            />
         </div>
+
     )
 }
 

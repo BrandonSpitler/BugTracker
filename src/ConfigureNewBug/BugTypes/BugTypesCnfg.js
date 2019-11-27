@@ -16,7 +16,7 @@ class BugTypesCnfg extends Component {
     render() {
         let bugTypes = this.state.bugTypes.map((props, index) => {
             return (
-                <BugTypeCnfg></BugTypeCnfg>
+                <BugTypeCnfg workspaceName={this.props.workspaceName}></BugTypeCnfg>
             )
         })
 

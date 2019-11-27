@@ -5,7 +5,7 @@ const bugTypeCnfg = (props) => {
     return (
         <div>
             <input defaultValue="Bug Type" type="text"></input>
-            <div><BugContainerToBugContainerCnfg></BugContainerToBugContainerCnfg></div>
+            <div><BugContainerToBugContainerCnfg workspaceName={props.workspaceName}></BugContainerToBugContainerCnfg></div>
         </div>
     )
 }

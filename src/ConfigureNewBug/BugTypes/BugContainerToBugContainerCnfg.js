@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import SubContainers from './SubContainers';
+import Select from '../../classes/UI/Select';
+import { connect } from 'react-redux'
+
 //todo add validation rules
 // make cug containers arent looped
 //make sure bug containers arent duplicated
@@ -18,16 +21,22 @@ class BugContainerToBugContainerCnfg extends Component {
     }
 
     render() {
-
+        let bugContainersNames = Object.keys(this.props.bugContainers).map(i => (this.props.bugContainers[i].containerName));
         return (
             <div>
-                <input type="text" defaultValue="Starting Bug Container">
-                </input>
-                <SubContainers SubContainers={this.state.subBugContainers}></SubContainers>
+                <Select selectItemArray={bugContainersNames}></Select>
+                <SubContainers workspaceName={this.props.workspaceName} SubContainers={this.state.subBugContainers}></SubContainers>
                 <button onClick={this.AddSubContainer}>Add container</button>
             </div>
         )
     }
 }
 
-export default BugContainerToBugContainerCnfg
+const mapPropsToState = (state, ownProps) => {
+    return {
+        bugContainers: state.cnfgReducer[ownProps.workspaceName].containers.slice()
+    }
+
+}
+
+export default connect(mapPropsToState)(BugContainerToBugContainerCnfg)
