@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BugContainer from '../../container/BugSpan/BugStage/BugContainer';
 import BugContainerCnfg from './BugContainerCnfg';
 import { connect } from 'react-redux'
-import { ADD_CONTAINER, CHANGE_CONTAINER } from '../../reducers/reducerActions'
+import { ADD_CONTAINER, CHANGE_CONTAINER, DELETE_CONTAINER } from '../../reducers/reducerActions'
 // todo add remove button
 // todo add key to bug container names
 class BugContainersCnfg extends Component {
@@ -15,10 +15,14 @@ class BugContainersCnfg extends Component {
         this.props.changeContainer(this.props.workspaceName, index, newContainer)
     }
 
+    deleteContainer = (index) => {
+        this.props.deleteContainer(this.props.workspaceName, index)
+    }
+
     render() {
         let bugContainers = (
             this.props.bugContainers.map((props, index) => {
-                return (<BugContainerCnfg index={index} setBugContainerName={this.setBugContainerName}></BugContainerCnfg>)
+                return (<BugContainerCnfg bugContainerName={props.containerName} index={index} deleteBugContainer={this.deleteContainer} setBugContainerName={this.setBugContainerName}></BugContainerCnfg>)
             })
         )
         return (
@@ -35,7 +39,8 @@ class BugContainersCnfg extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         addContainer: (workspaceName, newContainer) => dispatch({ type: ADD_CONTAINER, workspaceName: workspaceName, newContainer: newContainer }),
-        changeContainer: (workspaceName, index, newContainer) => dispatch({ type: CHANGE_CONTAINER, workspaceName: workspaceName, index: index, newContainer: newContainer })
+        changeContainer: (workspaceName, index, newContainer) => dispatch({ type: CHANGE_CONTAINER, workspaceName: workspaceName, index: index, newContainer: newContainer }),
+        deleteContainer: (workspaceName, index) => dispatch({ type: DELETE_CONTAINER, workspaceName: workspaceName, index: index })
     }
 }
 
