@@ -7,7 +7,23 @@ class BugTypesCnfg extends Component {
 
     addBugType = () => {
         let bugTypes = this.state.bugTypes.slice()
-        bugTypes.push({});
+        bugTypes.push({ bugName: 'new bug type' });
+        this.setState({
+            bugTypes: bugTypes
+        })
+    }
+
+    deleteBugType = (index) => {
+        let bugTypes = this.state.bugTypes.slice()
+        bugTypes.splice(index, 1)
+        this.setState({
+            bugTypes: bugTypes
+        })
+    }
+
+    setBugName = (index, newName) => {
+        let bugTypes = this.state.bugTypes.slice()
+        bugTypes[index].bugName = newName
         this.setState({
             bugTypes: bugTypes
         })
@@ -16,7 +32,12 @@ class BugTypesCnfg extends Component {
     render() {
         let bugTypes = this.state.bugTypes.map((props, index) => {
             return (
-                <BugTypeCnfg workspaceName={this.props.workspaceName}></BugTypeCnfg>
+                <BugTypeCnfg
+                    bugName={props.bugName}
+                    setBugName={this.setBugName}
+                    workspaceName={this.props.workspaceName}
+                    deleteBugType={this.deleteBugType}
+                    index={index}></BugTypeCnfg>
             )
         })
 
