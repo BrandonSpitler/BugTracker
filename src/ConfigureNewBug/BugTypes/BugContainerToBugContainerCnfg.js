@@ -30,7 +30,7 @@ const BugContainerToBugContainerCnfg = (props) => {
     }
 
     const DeleteSubContainer = index => {
-        let subBugContainers = this.state.subBugContainers.slice();
+        let subBugContainers = props.subBugContainers.slice();
         subBugContainers.splice(index, 1)
         ContainerWasModified({ containerName: props.containerName, subBugContainers: subBugContainers });
     };
