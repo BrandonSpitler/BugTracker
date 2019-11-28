@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import BugTypeCnfg from './bugTypeCnfg'
+import BugTypeCnfg from './BugTypeCnfg'
 class BugTypesCnfg extends Component {
     state = {
         bugTypes: []

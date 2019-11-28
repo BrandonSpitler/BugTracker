@@ -7,29 +7,58 @@ import { connect } from 'react-redux'
 // make cug containers arent looped
 //make sure bug containers arent duplicated
 
-class BugContainerToBugContainerCnfg extends Component {
-    state = {
-        subBugContainers: []
+const BugContainerToBugContainerCnfg = (props) => {
+
+    const ContainerWasModified = (state) => {
+        if (props.index === undefined) {
+            props.modifiedContainer(state);
+        } else {
+            props.modifiedContainer(props.index, state);
+        }
+    };
+
+    const AddSubContainer = () => {
+        let subBugContainers = props.subBugContainers.slice();
+        subBugContainers.push({ containerName: '', subBugContainers: [] });
+        ContainerWasModified({ containerName: props.containerName, subBugContainers: subBugContainers });
     }
 
-    AddSubContainer = (props) => {
+    const ModifySubContainer = (index, container) => {
+        let subBugContainers = props.subBugContainers.slice();
+        subBugContainers[index] = container
+        ContainerWasModified({ containerName: props.containerName, subBugContainers: subBugContainers });
+    }
+
+    const DeleteSubContainer = index => {
         let subBugContainers = this.state.subBugContainers.slice();
-        subBugContainers.push({});
-        this.setState(
-            { subBugContainers: subBugContainers }
-        );
+        subBugContainers.splice(index, 1)
+        ContainerWasModified({ containerName: props.containerName, subBugContainers: subBugContainers });
+    };
+
+    const setContainerName = newContainerName => {
+        ContainerWasModified({ containerName: newContainerName, subBugContainers: props.subBugContainers });
     }
 
-    render() {
-        let bugContainersNames = Object.keys(this.props.bugContainers).map(i => (this.props.bugContainers[i].containerName));
-        return (
-            <div>
-                <Select selectItemArray={bugContainersNames}></Select>
-                <SubContainers workspaceName={this.props.workspaceName} SubContainers={this.state.subBugContainers}></SubContainers>
-                <button onClick={this.AddSubContainer}>Add container</button>
-            </div>
-        )
-    }
+
+    let bugContainersNames = Object.keys(props.bugContainers).map(i => (props.bugContainers[i].containerName));
+    return (
+        <div>
+            <Select value={props.containerName} selectItemArray={bugContainersNames} changeHandler={setContainerName}></Select>
+            <SubContainers deleteContainer={DeleteSubContainer}
+                workspaceName={props.workspaceName}
+                subBugContainers={props.subBugContainers}
+                modifyContainer={ModifySubContainer}>
+            </SubContainers>
+            <button onClick={AddSubContainer}>Add container</button>
+            {props.deleteContainer == undefined ?
+                null :
+                <button className="btn btn-danger"
+                    onClick={() => props.deleteContainer(props.index)}>
+                    Delete Bug Flow
+                </button>
+            }
+        </div>
+    )
 }
 
 const mapPropsToState = (state, ownProps) => {

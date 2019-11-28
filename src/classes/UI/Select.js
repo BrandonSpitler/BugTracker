@@ -6,7 +6,7 @@ const Select = (props) => {
     })
 
     return (
-        <select>
+        <select value={props.value} onChange={(event) => props.changeHandler(event.target.value)}>
             {selectItems}
         </select>
     )

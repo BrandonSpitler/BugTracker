@@ -2,8 +2,18 @@ import BugContainerToBugContainerCnfg from "./BugContainerToBugContainerCnfg"
 import React from 'react'
 
 const SubContainers = (props) => {
-    let SubContainers = props.SubContainers.map((value, index) => {
-        return (<li><BugContainerToBugContainerCnfg workspaceName={props.workspaceName}></BugContainerToBugContainerCnfg></li>)
+    let SubContainers = props.subBugContainers.map((value, index) => {
+        return (
+            <li>
+                <BugContainerToBugContainerCnfg
+                    containerName={value.containerName}
+                    subBugContainers={value.subBugContainers}
+                    deleteContainer={props.deleteContainer}
+                    workspaceName={props.workspaceName}
+                    modifiedContainer={props.modifyContainer}
+                    index={index}>
+                </BugContainerToBugContainerCnfg>
+            </li>)
     }
     );
     let returnValue;
