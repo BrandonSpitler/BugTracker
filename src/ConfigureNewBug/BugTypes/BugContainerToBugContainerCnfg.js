@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SubContainers from './SubContainers';
-import Select from '../../classes/UI/Select';
+import Select from '../../UI/Select';
 import { connect } from 'react-redux'
 
 //todo add validation rules
