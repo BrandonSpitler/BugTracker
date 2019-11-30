@@ -14,7 +14,14 @@ class UsersCnfg extends Component {
     columns = [
         {
             columnName: 'User',
-            field: 'user'
+            field: 'user',
+            tableCellType: (props) => {
+                return (
+                    <td>
+                        <input></input>
+                    </td>
+                )
+            }
         },
         {
             columnName: 'Email',

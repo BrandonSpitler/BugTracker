@@ -24,6 +24,8 @@ const DefaultTableRow = (props) => {
     )
 }
 const DefaultTableCell = (props) => {
+
+
     return (
         <td>
             {props.children}

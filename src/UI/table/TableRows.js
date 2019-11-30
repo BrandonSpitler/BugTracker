@@ -2,10 +2,12 @@ import React from 'react'
 import TableRow from './TableRow'
 
 const TableRows = (props) => {
+
+
     let rows = props.tableData.map(
         (value, index) => {
             return (
-                <TableRow key={value.key === undefined ? index : value.key} {...props} rowData={value}>
+                <TableRow onChange={props.onTableRowChange} key={value.key === undefined ? index : value.key} {...props} rowData={value}>
                 </TableRow>
             )
         }
