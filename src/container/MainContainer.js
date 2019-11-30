@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import BugStageClass from '../classes/BugStageClass'
 import BugSpan from './BugSpan/BugSpan';
-import { throwStatement } from '@babel/types';
 
 class MainContainer extends Component {
     state = {

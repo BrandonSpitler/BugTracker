@@ -44,7 +44,7 @@ class BugTypesCnfg extends Component {
         return (
             <div>
                 {bugTypes}
-                <button type="button" class="btn btn-primary" onClick={this.addBugType}>Add Bug Type</button>
+                <button type="button" className="btn btn-primary" onClick={this.addBugType}>Add Bug Type</button>
             </div>
         )
     }

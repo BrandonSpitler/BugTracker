@@ -1,4 +1,4 @@
-import { combineReducers, bindActionCreators } from 'redux'
+import { combineReducers } from 'redux'
 import { ADD_CONTAINER, CHANGE_WORKSPACE_NAME, CHANGE_CONTAINER, DELETE_CONTAINER } from './reducerActions.js'
 const cnfgReducer = (state = { workspaceName: {} }, action) => {
     let newState;

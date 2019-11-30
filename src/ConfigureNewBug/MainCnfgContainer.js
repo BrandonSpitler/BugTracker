@@ -3,7 +3,8 @@ import WorkspaceCnfg from './WorkspaceCnfg';
 import BugContainersCnfg from './BugContainers/BugContainersCnfg';
 import { connect } from 'react-redux'
 import BugTypesCnfg from './BugTypes/BugTypesCnfg';
-import { CHANGE_WORKSPACE_NAME, ADD_WORKSPACE } from '../reducers/reducerActions'
+import { CHANGE_WORKSPACE_NAME } from '../reducers/reducerActions'
+import UsersCnfg from './users/UsersCnfg';
 
 
 class MainCnfgContainer extends Component {
@@ -24,6 +25,7 @@ class MainCnfgContainer extends Component {
                 <WorkspaceCnfg setWorkspaceName={this.setWorkspaceName} ></WorkspaceCnfg>
                 <BugContainersCnfg workspaceName={this.state.workspaceName}></BugContainersCnfg>
                 <BugTypesCnfg workspaceName={this.state.workspaceName}></BugTypesCnfg>
+                <UsersCnfg></UsersCnfg>
             </div>
         )
     }

@@ -1,11 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 
 const WorkSpaceCnfg = props => {
-
-    const BugTypeSubmitHandler = (event) => {
-
-    }
     return (
         <div>
             <form>

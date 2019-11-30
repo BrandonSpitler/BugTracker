@@ -10,7 +10,7 @@ const Input = (props) => {
 
 
 Input.propTypes = {
-
+    changeEventHandler: PropTypes.func.isRequired
 }
 
 export default Input

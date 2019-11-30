@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BugContainer from '../../container/BugSpan/BugStage/BugContainer';
 import BugContainerCnfg from './BugContainerCnfg';
 import { connect } from 'react-redux'
 import { ADD_CONTAINER, CHANGE_CONTAINER, DELETE_CONTAINER } from '../../reducers/reducerActions'
@@ -45,7 +44,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapPropsToState = (state, ownProps) => {
-    if (state.cnfgReducer[ownProps.workspaceName] == undefined) {
+    if (state.cnfgReducer[ownProps.workspaceName] === undefined) {
         return {
             workspaceName: ownProps.workspaceName,
             bugContainers: []

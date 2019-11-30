@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Form, Field } from 'react-final-form'
+import React from 'react'
 
 const bugContainerCnfg = (props) => {
     return (

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SubContainers from './SubContainers';
 import Select from '../../UI/Select';
 import { connect } from 'react-redux'
@@ -50,7 +50,7 @@ const BugContainerToBugContainerCnfg = (props) => {
                 modifyContainer={ModifySubContainer}>
             </SubContainers>
             <button onClick={AddSubContainer}>Add container</button>
-            {props.deleteContainer == undefined ?
+            {props.deleteContainer === undefined ?
                 null :
                 <button className="btn btn-danger"
                     onClick={() => props.deleteContainer(props.index)}>
