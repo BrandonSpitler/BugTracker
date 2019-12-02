@@ -32,7 +32,7 @@ function OrderDisplayData(UXToBackgroundDataIndexs, tableData) {
     const newDisplayData = [];
     UXToBackgroundDataIndexs.forEach(
         (originalIndex, _) => {
-            newDisplayData.push(tableData[originalIndex])
+            newDisplayData.push({ ...tableData[originalIndex], key: originalIndex })
         }
     )
     return newDisplayData;
@@ -47,6 +47,9 @@ class TableUX extends Component {
     }
 
 
+    onRowChange = (index, value) => {
+        this.props.onRowChange(this.state.UXToBackgroundDataIndexs[index], value)
+    }
 
     onTableHeaderClick = (columnIndex) => {
         const newSortedColumns = this.state.sortedColumns.slice()
@@ -93,19 +96,28 @@ class TableUX extends Component {
         })
     }
 
+    addRow = () => {
+        this.props.addRow()
+    }
+
     render() {
         let displayData = OrderDisplayData(this.state.UXToBackgroundDataIndexs, this.props.tableData)
 
-        return (<Table
-            columns={this.props.columns.slice()}
-            tableData={displayData}
-            Component={{ ...defaultContainer, TableHeaderCellType: DefaultTableHeaderRowUX }}
-            Column={{
-                onClick: this.onTableHeaderClick,
-                sortColumns: this.state.sortedColumns
-            }}
-        >
-        </Table >
+        return (
+            <div>
+                <Table
+                    columns={this.props.columns.slice()}
+                    tableData={displayData}
+                    Component={{ ...defaultContainer, TableHeaderCellType: DefaultTableHeaderRowUX }}
+                    Column={{
+                        onClick: this.onTableHeaderClick,
+                        sortColumns: this.state.sortedColumns
+                    }}
+                    onRowChange={this.onRowChange}
+                >
+                </Table >
+                <button onClick={this.addRow}>Add</button>
+            </div>
         )
     }
 }

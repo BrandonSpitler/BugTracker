@@ -18,49 +18,37 @@ class UsersCnfg extends Component {
             TableCellType: (props) => {
                 return (
                     <td>
-                        <input></input>
+                        <input onChange={(event) => props.onChange(props.fieldName, event.target.value)}></input>
                     </td>
                 )
             }
         },
         {
             columnName: 'Email',
-            field: 'email'
+            field: 'email',
+            TableCellType: (props) => {
+                return (
+                    <td>
+                        <input onChange={(event) => props.onChange(props.fieldName, event.target.value)}></input>
+                    </td>
+                )
+            }
         }
     ]
 
-    data = [
-        {
-            user: 'Brandon',
-            email: 'brandonfspitler@gmail.com'
-        },
-        {
-            user: 'Joe',
-            email: 'Joe@gmail.com'
-        },
-        {
-            user: 'Phil',
-            email: 'Phil@gmail.com'
-        },
-        {
-            user: 'Brandon',
-            email: 'brandonfspitler@gmail.com'
-        }
-    ]
-
-    changeUser = (index, newUser) => {
-        const newUsers = this.state.Users.slice();
-        newUsers[index] = newUser;
+    onUserRowChange = (index, value) => {
+        let newTableData = this.state.Users.slice()
+        newTableData[index] = value
         this.setState({
-            Users: newUsers
+            Users: newTableData
         })
     }
 
     addUser = () => {
         const newUsers = this.state.Users.slice();
         newUsers.push({
-            name: '',
-            email: ''
+            email: '',
+            user: ''
         })
         this.setState({
             Users: newUsers
@@ -68,20 +56,13 @@ class UsersCnfg extends Component {
     }
 
     render() {
-        let Users = this.state.Users.map(
-            (value, index) => {
-                return (
-                    <UserCnfg index={index}
-                        user={value}
-                        changeUser={this.changeUser}
-                    >
-                    </UserCnfg>
-                )
-            })
         return (
 
-            <TableUX Component={{ ...defaultContainer }} columns={this.columns.slice()} tableData={this.data.slice()}>
-
+            <TableUX Component={{ ...defaultContainer }}
+                columns={this.columns.slice()}
+                tableData={this.state.Users.slice()}
+                onRowChange={this.onUserRowChange}
+                addRow={this.addUser}>
             </TableUX>
         )
 

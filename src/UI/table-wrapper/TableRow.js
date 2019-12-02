@@ -8,7 +8,7 @@ const TableRow = (props) => {
     const onTableCellChange = (fieldName, value) => {
         const newCellValue = { ...props.rowData };
         newCellValue[fieldName] = value;
-        props.onChange(props.dataIndex, { ...newCellValue });
+        props.onRowChange(props.dataIndex, { ...newCellValue });
     }
 
     let tableCells = (props.MapRowToCellsOverride ? props.MapRowToCellsOverride(props) : props.columns.map(
@@ -25,8 +25,9 @@ const TableRow = (props) => {
             return (
                 <TableCell  {...props}
                     onChange={onTableCellChange}
-                    key={props.rowData[column.field]}
+                    key={column.field}
                     value={props.rowData[column.field]}
+                    fieldName={column.field}
                     Component={
                         {
                             ...props.Component,

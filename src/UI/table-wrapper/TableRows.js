@@ -6,16 +6,16 @@ const TableRows = (props) => {
     let rows = (props.MapTableDateToRows ? props.MapTableDataToRows(props) : props.tableData.map(
         (value, index) => {
             return (
-                <TableRow onChange={props.onTableRowChange} key={value.key === undefined ? index : value.key} {...props} rowData={value}>
+                <TableRow dataIndex={index} onChange={props.onTableRowChange} key={value.key === undefined ? index : value.key} {...props} rowData={value}>
                 </TableRow>
             )
         }
     ))
 
     return (
-        <props.Component.TableBodyType>
+        < props.Component.TableBodyType >
             {rows}
-        </props.Component.TableBodyType>
+        </props.Component.TableBodyType >
     )
 }
 
