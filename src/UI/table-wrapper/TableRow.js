@@ -13,12 +13,27 @@ const TableRow = (props) => {
 
     let tableCells = (props.MapRowToCellsOverride ? props.MapRowToCellsOverride(props) : props.columns.map(
         (column) => {
+
+            const TableCellType = (
+                (props.Row.TableCellType) ? //if
+                    props.Component.TableCellType
+                    : (column.TableCellType) ? //else if
+                        column.TableCellType
+                        : //else
+                        props.Component.TableCellType
+            )
+
             return (
                 <TableCell  {...props}
                     onChange={onTableCellChange}
                     key={props.rowData[column.field]}
                     value={props.rowData[column.field]}
-                    Component={{ ...props.Component, TableCellType: column.TableCellType === undefined ? props.Component.TableCellType : column.TableCellType }}>
+                    Component={
+                        {
+                            ...props.Component,
+                            TableCellType: column.TableCellType === undefined ?
+                                props.Component.TableCellType : column.TableCellType
+                        }}>
                 </TableCell>
             )
         }
@@ -46,6 +61,9 @@ TableRow.propTypes = {
         TableHeaderType: PropTypes.elementType.isRequired,
         TableHeaderRowType: PropTypes.elementType.isRequired,
         TableHeaderCellType: PropTypes.elementType.isRequired
+    }),
+    Row: PropTypes.shape({
+        TableCellType: PropTypes.elementType
     })
 }
 
