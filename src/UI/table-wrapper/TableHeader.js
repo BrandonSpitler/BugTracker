@@ -1,5 +1,6 @@
 import React from 'react'
 import TableCell from './TableCell'
+import PropTypes, { object } from 'prop-types';
 
 
 const TableHeader = (props) => {
@@ -18,6 +19,20 @@ const TableHeader = (props) => {
             </props.Component.TableHeaderRowType>
         </props.Component.TableHeaderType>
     )
+}
+
+const ColumnPropType = {
+    columnName: PropTypes.string,
+    field: PropTypes.string.isRequired
+}
+
+TableHeader.propTypes = {
+    columns: PropTypes.arrayOf(PropTypes.shape(ColumnPropType).isRequired).isRequired,
+    Component: PropTypes.shape({
+        TableHeaderType: PropTypes.elementType.isRequired,
+        TableHeaderRowType: PropTypes.elementType.isRequired,
+        TableHeaderCellType: PropTypes.elementType.isRequired
+    })
 }
 
 export default TableHeader;

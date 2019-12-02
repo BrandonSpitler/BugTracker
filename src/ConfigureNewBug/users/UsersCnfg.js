@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
 import UserCnfg from './UserCnfg';
-import { defaultContainer } from '../../UI/table/defaultProps';
-import Table from '../../UI/table/Table';
+import { defaultContainer } from '../../UI/table-wrapper/defaultProps';
+import Table from '../../UI/table-wrapper/Table';
 
 
 class UsersCnfg extends Component {
@@ -15,7 +15,7 @@ class UsersCnfg extends Component {
         {
             columnName: 'User',
             field: 'user',
-            tableCellType: (props) => {
+            TableCellType: (props) => {
                 return (
                     <td>
                         <input></input>
@@ -79,28 +79,6 @@ class UsersCnfg extends Component {
             <Table Component={{ ...defaultContainer }} columns={this.columns.slice()} tableData={this.data.slice()}>
 
             </Table>
-            // <table className="table table-hover">
-            //     <thead>
-            //         <tr>
-            //             <th>
-            //                 Name
-            //             </th>
-            //             <th>
-            //                 email
-            //             </th>
-            //         </tr>
-            //     </thead>
-            //     <tbody>
-            //         {Users}
-            //         <tr>
-            //             <td colSpan='2'>
-            //                 <button onClick={this.addUser}>
-            //                     Add User
-            //                 </button>
-            //             </td>
-            //         </tr>
-            //     </tbody>
-            // </table >
         )
 
     }
