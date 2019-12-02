@@ -24,10 +24,6 @@ const Table = (props) => {
         <props.Component.TableType>
             <TableHeader {...props}></TableHeader>
             <TableRows {...props}></TableRows>
-            {props.AddRowOn ?
-                null :
-                <TableRow {...props}></TableRow>
-            }
         </props.Component.TableType>
     )
 }

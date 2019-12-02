@@ -14,14 +14,13 @@ const TableRow = (props) => {
     let tableCells = (props.MapRowToCellsOverride ? props.MapRowToCellsOverride(props) : props.columns.map(
         (column) => {
 
-            const TableCellType = (
-                (props.Row.TableCellType) ? //if
+            const TableCellType = (props.Row && (props.Row.TableCellType) ? //if
+                props.Component.TableCellType
+                : (column.TableCellType) ? //else if
+                    column.TableCellType
+                    : //else
                     props.Component.TableCellType
-                    : (column.TableCellType) ? //else if
-                        column.TableCellType
-                        : //else
-                        props.Component.TableCellType
-            )
+            );
 
             return (
                 <TableCell  {...props}

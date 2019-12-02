@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import UserCnfg from './UserCnfg';
 import { defaultContainer } from '../../UI/table-wrapper/defaultProps';
-import Table from '../../UI/table-wrapper/Table';
+import TableUX from '../../UI/table-UX-Dsgn/TableUX';
 
 
 class UsersCnfg extends Component {
@@ -41,6 +41,10 @@ class UsersCnfg extends Component {
         {
             user: 'Phil',
             email: 'Phil@gmail.com'
+        },
+        {
+            user: 'Brandon',
+            email: 'brandonfspitler@gmail.com'
         }
     ]
 
@@ -76,9 +80,9 @@ class UsersCnfg extends Component {
             })
         return (
 
-            <Table Component={{ ...defaultContainer }} columns={this.columns.slice()} tableData={this.data.slice()}>
+            <TableUX Component={{ ...defaultContainer }} columns={this.columns.slice()} tableData={this.data.slice()}>
 
-            </Table>
+            </TableUX>
         )
 
     }

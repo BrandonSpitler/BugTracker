@@ -1,9 +1,113 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Table from '../table-wrapper/Table';
+import { defaultContainer } from '../table-wrapper/defaultProps';
+import { DefaultTableHeaderRowUX } from './defaultComponentsTableUX';
 
 
-const TableUX = (props) => {
-    <Table>
+function getSortedUXData(UXToBackgroundDataIndexs, sortedColumns, columns, tableData) {
+    const compare = (firstValue, secondValue) => {
+        const arrayLength = sortedColumns.length;
+        for (var i = 0; i < arrayLength; i++) {
+            const columnIndex = sortedColumns[i].index;
+            const a = sortedColumns[i].desc ? firstValue : secondValue;
+            const b = !sortedColumns[i].desc ? firstValue : secondValue;
+            const dataFieldName = columns[columnIndex].field;
 
-    </Table>
+            if (tableData[a][dataFieldName] > tableData[b][dataFieldName]) {
+                return 1;
+            } else if (tableData[a][dataFieldName] < tableData[b][dataFieldName]) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+    const newUXToBackgroundDataIndexs = UXToBackgroundDataIndexs.slice();
+    newUXToBackgroundDataIndexs.sort(compare);
+    return (newUXToBackgroundDataIndexs);
 }
+
+
+function OrderDisplayData(UXToBackgroundDataIndexs, tableData) {
+    const newDisplayData = [];
+    UXToBackgroundDataIndexs.forEach(
+        (originalIndex, _) => {
+            newDisplayData.push(tableData[originalIndex])
+        }
+    )
+    return newDisplayData;
+}
+
+
+class TableUX extends Component {
+
+    state = {
+        sortedColumns: [],
+        UXToBackgroundDataIndexs: []
+    }
+
+
+
+    onTableHeaderClick = (columnIndex) => {
+        const newSortedColumns = this.state.sortedColumns.slice()
+        const sortedColumnIndex = newSortedColumns.findIndex(value => value.index === columnIndex)
+        if (sortedColumnIndex !== - 1) {
+            if (newSortedColumns[sortedColumnIndex].desc) {
+                newSortedColumns[sortedColumnIndex].desc = false
+            } else {
+                newSortedColumns.splice(sortedColumnIndex, 1)
+            }
+        } else {
+            newSortedColumns.push(
+                {
+                    index: columnIndex,
+                    desc: true
+                }
+            )
+        }
+        this.setState({
+            sortedColumns: newSortedColumns
+        }, this.sortAndSetUXDataState)
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const newState = { ...state }
+        let newUXToBackgroundDataIndexs = [];
+        props.tableData.forEach(
+            (_, index) => {
+                newUXToBackgroundDataIndexs.push(index)
+            }
+        )
+        newState.UXToBackgroundDataIndexs = getSortedUXData(newUXToBackgroundDataIndexs, newState.sortedColumns, props.columns, props.tableData);
+        return newState;
+    }
+
+    sortAndSetUXDataState = () => {
+        this.setState({
+            UXToBackgroundDataIndexs: getSortedUXData(
+                this.state.UXToBackgroundDataIndexs.slice(),
+                this.state.sortedColumns.slice(),
+                this.props.columns,
+                this.props.tableData
+            )
+        })
+    }
+
+    render() {
+        let displayData = OrderDisplayData(this.state.UXToBackgroundDataIndexs, this.props.tableData)
+
+        return (<Table
+            columns={this.props.columns.slice()}
+            tableData={displayData}
+            Component={{ ...defaultContainer, TableHeaderCellType: DefaultTableHeaderRowUX }}
+            Column={{
+                onClick: this.onTableHeaderClick,
+                sortColumns: this.state.sortedColumns
+            }}
+        >
+        </Table >
+        )
+    }
+}
+
+export default TableUX

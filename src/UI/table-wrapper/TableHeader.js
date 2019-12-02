@@ -7,7 +7,7 @@ const TableHeader = (props) => {
     let HeaderRows = props.columns.map(
         (columnValue, index) => {
             return (
-                <TableCell {...props} value={columnValue.columnName} key={columnValue.field} Component={{ TableCellType: props.Component.TableHeaderCellType }}>
+                <TableCell {...props} value={columnValue.columnName} columnIndex={index} key={columnValue.field} Component={{ TableCellType: props.Component.TableHeaderCellType }}>
 
                 </TableCell >
             )
