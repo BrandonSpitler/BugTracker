@@ -77,8 +77,10 @@ class TableUX extends Component {
         const newState = { ...state }
         let newUXToBackgroundDataIndexs = [];
         props.tableData.forEach(
-            (_, index) => {
-                newUXToBackgroundDataIndexs.push(index)
+            (value, index) => {
+                if (!value.deleted) {
+                    newUXToBackgroundDataIndexs.push(index)
+                }
             }
         )
         newState.UXToBackgroundDataIndexs = getSortedUXData(newUXToBackgroundDataIndexs, newState.sortedColumns, props.columns, props.tableData);
@@ -100,13 +102,32 @@ class TableUX extends Component {
         this.props.addRow()
     }
 
+    deleteRow = (dataIndex) => {
+        this.props.deleteRow(this.state.UXToBackgroundDataIndexs[dataIndex])
+    }
+
     render() {
         let displayData = OrderDisplayData(this.state.UXToBackgroundDataIndexs, this.props.tableData)
+        let newColumns = this.props.columns.slice()
+
+        if (this.props.deleteRow !== undefined) {
+            newColumns.push({
+                columnName: '',
+                field: 'actions',
+                TableCellType: (props) => {
+                    return (
+                        <td>
+                            <button onClick={() => this.deleteRow(props.dataIndex)}>Delete</button>
+                        </td>
+                    )
+                }
+            })
+        }
 
         return (
             <div>
                 <Table
-                    columns={this.props.columns.slice()}
+                    columns={newColumns.slice()}
                     tableData={displayData}
                     Component={{ ...defaultContainer, TableHeaderCellType: DefaultTableHeaderRowUX }}
                     Column={{

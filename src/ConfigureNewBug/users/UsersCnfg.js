@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import UserCnfg from './UserCnfg';
 import { defaultContainer } from '../../UI/table-wrapper/defaultProps';
 import TableUX from '../../UI/table-UX-Dsgn/TableUX';
@@ -13,12 +13,17 @@ class UsersCnfg extends Component {
 
     columns = [
         {
+
             columnName: 'User',
             field: 'user',
             TableCellType: (props) => {
+                // useEffect(()=> {
+
+                // })
                 return (
+
                     <td>
-                        <input onChange={(event) => props.onChange(props.fieldName, event.target.value)}></input>
+                        <input autoFocus onChange={(event) => props.onChange(props.fieldName, event.target.value)}></input>
                     </td>
                 )
             }
@@ -44,6 +49,18 @@ class UsersCnfg extends Component {
         })
     }
 
+    deleteRow = (index) => {
+        const newUsers = this.state.Users.slice();
+        newUsers[index] = {
+            email: '',
+            user: '',
+            deleted: true
+        }
+        this.setState({
+            Users: newUsers
+        })
+    }
+
     addUser = () => {
         const newUsers = this.state.Users.slice();
         newUsers.push({
@@ -57,15 +74,14 @@ class UsersCnfg extends Component {
 
     render() {
         return (
-
             <TableUX Component={{ ...defaultContainer }}
                 columns={this.columns.slice()}
                 tableData={this.state.Users.slice()}
                 onRowChange={this.onUserRowChange}
-                addRow={this.addUser}>
+                addRow={this.addUser}
+                deleteRow={this.deleteRow}>
             </TableUX>
         )
-
     }
 }
 
