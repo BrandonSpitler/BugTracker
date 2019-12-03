@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import BugTypesCnfg from './BugTypes/BugTypesCnfg';
 import { CHANGE_WORKSPACE_NAME } from '../reducers/reducerActions'
 import UsersCnfg from './users/UsersCnfg';
+import RolesCnfg from './roles/RolesCnfg';
 
 
 class MainCnfgContainer extends Component {
@@ -26,6 +27,7 @@ class MainCnfgContainer extends Component {
                 <BugContainersCnfg workspaceName={this.state.workspaceName}></BugContainersCnfg>
                 <BugTypesCnfg workspaceName={this.state.workspaceName}></BugTypesCnfg>
                 <UsersCnfg></UsersCnfg>
+                <RolesCnfg></RolesCnfg>
             </div>
         )
     }

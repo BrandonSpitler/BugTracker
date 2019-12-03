@@ -17,11 +17,7 @@ class UsersCnfg extends Component {
             columnName: 'User',
             field: 'user',
             TableCellType: (props) => {
-                // useEffect(()=> {
-
-                // })
                 return (
-
                     <td>
                         <input autoFocus onChange={(event) => props.onChange(props.fieldName, event.target.value)}></input>
                     </td>
