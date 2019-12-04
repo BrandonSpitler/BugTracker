@@ -7,25 +7,6 @@ class RolesCnfg extends Component {
         Roles: []
     }
 
-    columns = [
-        {
-
-            columnName: 'Role',
-            field: 'Role',
-            TableCellType: (props) => {
-                // useEffect(()=> {
-
-                // })
-                return (
-
-                    <td>
-                        <input autoFocus onChange={(event) => props.onChange(props.fieldName, event.target.value)}></input>
-                    </td>
-                )
-            }
-        }
-    ]
-
     deleteRow = (index) => {
         const Roles = this.state.Roles.slice();
         Roles[index] = {
@@ -41,6 +22,7 @@ class RolesCnfg extends Component {
         const Roles = this.state.Roles.slice();
         Roles.push({
             Role: '',
+            UsersRoles: []
         })
         this.setState({
             Roles: Roles
@@ -56,6 +38,14 @@ class RolesCnfg extends Component {
         })
     }
 
+    ChangesUsersRoles = (index, value) => {
+        const Roles = this.state.Roles.slice();
+        Roles[index].UsersRoles = value
+        this.setState({
+            Roles: Roles
+        })
+    }
+
     render() {
         return (
             <div>
@@ -63,7 +53,8 @@ class RolesCnfg extends Component {
                     AccordionPanels={this.state.Roles}
                     AccordionHeaderField='Role'
                     AccordionPanelType={RoleCnfg}
-                    onRoleChange={this.onRoleChange}>
+                    onRoleChange={this.onRoleChange}
+                    ChangesUsersRoles={this.ChangesUsersRoles}>
                 </Accordion>
                 <button onClick={this.addRole}>
                     Add Role

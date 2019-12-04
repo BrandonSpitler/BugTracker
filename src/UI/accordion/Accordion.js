@@ -52,7 +52,7 @@ class Accordion extends Component {
                         </button>
                         {value.open ?
                             <div className="panel">
-                                <this.props.AccordionPanelType {...this.props} index={value.index} value={this.props.AccordionPanels[value.index]} ></this.props.AccordionPanelType>
+                                <this.props.AccordionPanelType {...this.props} index={value.index} data={this.props.AccordionPanels[value.index]} ></this.props.AccordionPanelType>
                             </div>
                             :
                             null
