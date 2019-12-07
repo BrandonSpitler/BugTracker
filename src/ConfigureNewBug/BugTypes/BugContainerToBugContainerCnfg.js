@@ -39,15 +39,19 @@ const BugContainerToBugContainerCnfg = (props) => {
         ContainerWasModified({ containerName: newContainerName, subBugContainers: props.subBugContainers });
     }
 
-
-    let bugContainersNames = Object.keys(props.bugContainers).map(i => (props.bugContainers[i].containerName));
     return (
         <div>
-            <Select value={props.containerName} selectItemArray={bugContainersNames} changeHandler={setContainerName}></Select>
+            <Select value={props.containerName}
+                selectItemArray={props.bugContainers}
+                valueName='containerName'
+                decodeName='containerName'
+                changeHandler={setContainerName}>
+            </Select>
             <SubContainers deleteContainer={DeleteSubContainer}
                 workspaceName={props.workspaceName}
                 subBugContainers={props.subBugContainers}
-                modifyContainer={ModifySubContainer}>
+                modifyContainer={ModifySubContainer}
+                bugContainers={props.bugContainers}>
             </SubContainers>
             <button onClick={AddSubContainer}>Add container</button>
             {props.deleteContainer === undefined ?
@@ -61,11 +65,5 @@ const BugContainerToBugContainerCnfg = (props) => {
     )
 }
 
-const mapPropsToState = (state, ownProps) => {
-    return {
-        bugContainers: state.cnfgReducer[ownProps.workspaceName].containers.slice()
-    }
 
-}
-
-export default connect(mapPropsToState)(BugContainerToBugContainerCnfg)
+export default BugContainerToBugContainerCnfg

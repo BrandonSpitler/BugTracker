@@ -54,12 +54,14 @@ class RolesCnfg extends Component {
                     AccordionHeaderField='Role'
                     AccordionPanelType={RoleCnfg}
                     onRoleChange={this.onRoleChange}
-                    ChangesUsersRoles={this.ChangesUsersRoles}>
+                    ChangesUsersRoles={this.ChangesUsersRoles}
+                    workspaceName={this.props.workspaceName}
+                    Users={this.props.Users}>
                 </Accordion>
                 <button onClick={this.addRole}>
                     Add Role
                 </button>
-            </div>
+            </div >
         )
     }
 }

@@ -10,12 +10,39 @@ import RolesCnfg from './roles/RolesCnfg';
 
 class MainCnfgContainer extends Component {
     state = {
-        workspaceName: ''
+        workSpaceName: 'workspacename',
+        Users: [],
+        Containers: []
+
     }
     setWorkspaceName = (newWorkspaceName) => {
-        this.props.changeWorkSpace(this.state.workspaceName, newWorkspaceName)
+        this.props.changeWorkSpace(this.state.workSpaceName, newWorkspaceName)
         this.setState({
             workspaceName: newWorkspaceName
+        })
+    }
+
+    changeUser = (index, newValue) => {
+        let newUsers = this.state.Users.slice()
+        if (index === -1) {
+            newUsers.push(newValue)
+        } else {
+            newUsers[index] = newValue
+        }
+        this.setState({
+            Users: newUsers
+        })
+    }
+
+    changeContainer = (index, newValue) => {
+        let newContainers = this.state.Containers.slice();
+        if (index === -1) {
+            newContainers.push(newValue)
+        } else {
+            newContainers[index] = newValue
+        }
+        this.setState({
+            Containers: newContainers
         })
     }
 
@@ -24,10 +51,10 @@ class MainCnfgContainer extends Component {
 
             <div>
                 <WorkspaceCnfg setWorkspaceName={this.setWorkspaceName} ></WorkspaceCnfg>
-                <BugContainersCnfg workspaceName={this.state.workspaceName}></BugContainersCnfg>
-                <BugTypesCnfg workspaceName={this.state.workspaceName}></BugTypesCnfg>
-                <UsersCnfg></UsersCnfg>
-                <RolesCnfg></RolesCnfg>
+                <BugContainersCnfg bugContainers={this.state.Containers} changeContainer={this.changeContainer} workspaceName={this.state.workspaceName}></BugContainersCnfg>
+                <BugTypesCnfg bugContainers={this.state.Containers} workspaceName={this.state.workspaceName}></BugTypesCnfg>
+                <UsersCnfg Users={this.state.Users} changeUser={this.changeUser} workspaceName={this.state.workspaceName}></UsersCnfg>
+                <RolesCnfg Users={this.state.Users} workspaceName={this.state.workspaceName}></RolesCnfg>
             </div>
         )
     }

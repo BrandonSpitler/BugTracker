@@ -3,14 +3,11 @@ import React, { Component, useEffect } from 'react';
 import UserCnfg from './UserCnfg';
 import { defaultContainer } from '../../UI/table-wrapper/defaultProps';
 import TableUX from '../../UI/table-UX-Dsgn/TableUX';
+import { connect } from 'react-redux'
+import { DELETE_USER, UPDATE_USER, ADD_USER } from './../../reducers/reducerActions'
 
 
 class UsersCnfg extends Component {
-    state = {
-        Users: []
-    }
-
-
     columns = [
         {
 
@@ -38,33 +35,17 @@ class UsersCnfg extends Component {
     ]
 
     onUserRowChange = (index, value) => {
-        let newTableData = this.state.Users.slice()
-        newTableData[index] = value
-        this.setState({
-            Users: newTableData
-        })
+        this.props.changeUser(this.props.workspaceName, index, value)
     }
 
     deleteRow = (index) => {
-        const newUsers = this.state.Users.slice();
-        newUsers[index] = {
-            email: '',
-            user: '',
-            deleted: true
-        }
-        this.setState({
-            Users: newUsers
-        })
+        this.props.changeUser(index, { deleted: true })
     }
 
     addUser = () => {
-        const newUsers = this.state.Users.slice();
-        newUsers.push({
+        this.props.changeUser(-1, {
             email: '',
             user: ''
-        })
-        this.setState({
-            Users: newUsers
         })
     }
 
@@ -72,7 +53,7 @@ class UsersCnfg extends Component {
         return (
             <TableUX Component={{ ...defaultContainer }}
                 columns={this.columns.slice()}
-                tableData={this.state.Users.slice()}
+                tableData={this.props.Users.slice()}
                 onRowChange={this.onUserRowChange}
                 addRow={this.addUser}
                 deleteRow={this.deleteRow}>

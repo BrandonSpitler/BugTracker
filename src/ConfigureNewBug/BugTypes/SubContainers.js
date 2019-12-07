@@ -8,6 +8,7 @@ const SubContainers = (props) => {
                 <BugContainerToBugContainerCnfg
                     containerName={value.containerName}
                     subBugContainers={value.subBugContainers}
+                    bugContainers={props.bugContainers}
                     deleteContainer={props.deleteContainer}
                     workspaceName={props.workspaceName}
                     modifiedContainer={props.modifyContainer}

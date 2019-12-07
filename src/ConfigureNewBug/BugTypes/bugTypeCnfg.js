@@ -24,6 +24,7 @@ class BugTypeCnfg extends Component {
                         containerName={this.state.containerName}
                         subBugContainers={this.state.subBugContainers}
                         modifiedContainer={this.modifiedContainer}
+                        bugContainers={this.props.bugContainers}
                     >
                     </BugContainerToBugContainerCnfg>
                 </div>

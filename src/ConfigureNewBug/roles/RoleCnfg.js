@@ -1,8 +1,15 @@
 import React from 'react'
 import TableUX from '../../UI/table-UX-Dsgn/TableUX'
 import { defaultContainer } from '../../UI/table-wrapper/defaultProps'
+import { connect } from 'react-redux'
+import Select from '../../UI/Select'
 
 const RoleCnfg = (props) => {
+    let dataValues = props.Users.map(
+        (value, _) => {
+            return (value.email)
+        })
+    dataValues.push('')
     let columns = [
         {
             columnName: 'Users',
@@ -10,7 +17,13 @@ const RoleCnfg = (props) => {
             TableCellType: (props) => {
                 return (
                     <td>
-                        <input autoFocus onChange={(event) => props.onChange(props.fieldName, event.target.value)}></input>
+                        <Select autoFocus
+                            valueName='Email'
+                            decodeName='Email'
+                            value={props.Users.UsersRole}
+                            selectItemArray={props.Users}
+                            changeHandler={(value) => props.onChange(props.fieldName, value)}>
+                        </Select>
                     </td>
                 )
             }
