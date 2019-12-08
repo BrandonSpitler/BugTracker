@@ -9,6 +9,14 @@ import { connect } from 'react-redux'
 
 const BugContainerToBugContainerCnfg = (props) => {
 
+    const GetChangePramas = () => {
+        return ({
+            containerName: props.containerName,
+            subBugContainers: props.subBugContainers,
+            subBugRole: props.subBugRole
+        })
+    }
+
     const ContainerWasModified = (state) => {
         if (props.index === undefined) {
             props.modifiedContainer(state);
@@ -19,35 +27,65 @@ const BugContainerToBugContainerCnfg = (props) => {
 
     const AddSubContainer = () => {
         let subBugContainers = props.subBugContainers.slice();
-        subBugContainers.push({ containerName: '', subBugContainers: [] });
-        ContainerWasModified({ containerName: props.containerName, subBugContainers: subBugContainers });
+        subBugContainers.push({ containerName: '', subBugContainers: [], subBugRole: '' });
+        ContainerWasModified({ ...GetChangePramas(), subBugContainers: subBugContainers });
     }
 
     const ModifySubContainer = (index, container) => {
         let subBugContainers = props.subBugContainers.slice();
         subBugContainers[index] = container
-        ContainerWasModified({ containerName: props.containerName, subBugContainers: subBugContainers });
+        ContainerWasModified({ ...GetChangePramas(), subBugContainers: subBugContainers });
     }
 
     const DeleteSubContainer = index => {
         let subBugContainers = props.subBugContainers.slice();
         subBugContainers.splice(index, 1)
-        ContainerWasModified({ containerName: props.containerName, subBugContainers: subBugContainers });
+        ContainerWasModified({
+            ...GetChangePramas(),
+            subBugContainers: subBugContainers
+        });
     };
 
     const setContainerName = newContainerName => {
-        ContainerWasModified({ containerName: newContainerName, subBugContainers: props.subBugContainers });
+        ContainerWasModified({
+            ...GetChangePramas(),
+            containerName: newContainerName
+        });
+    }
+
+    const SelectRoleChangeHangler = newRole => {
+        ContainerWasModified({
+            ...GetChangePramas(),
+            subBugRole: newRole
+        })
     }
 
     return (
         <div>
-            <Select value={props.containerName}
-                selectItemArray={props.bugContainers}
-                valueName='containerName'
-                decodeName='containerName'
-                changeHandler={setContainerName}>
-            </Select>
+            <div>
+                <label>
+                    Container
+            </label>
+                <Select value={props.containerName}
+                    selectItemArray={props.bugContainers}
+                    valueName='containerName'
+                    decodeName='containerName'
+                    changeHandler={setContainerName}>
+                </Select>
+            </div>
+            <div>
+                <label>
+                    Assign to Role
+            </label>
+                <Select value={props.subBugRole}
+                    selectItemArray={props.BugJobRoles}
+                    valueName='bugJobRoles'
+                    decodeName='bugJobRoles'
+                    changeHandler={SelectRoleChangeHangler}>
+                </Select>
+            </div>
             <SubContainers deleteContainer={DeleteSubContainer}
+                BugJobRoles={props.BugJobRoles}
                 workspaceName={props.workspaceName}
                 subBugContainers={props.subBugContainers}
                 modifyContainer={ModifySubContainer}

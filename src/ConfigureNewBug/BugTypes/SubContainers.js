@@ -12,7 +12,8 @@ const SubContainers = (props) => {
                     deleteContainer={props.deleteContainer}
                     workspaceName={props.workspaceName}
                     modifiedContainer={props.modifyContainer}
-                    index={index}>
+                    index={index}
+                    BugJobRoles={props.BugJobRoles}>
                 </BugContainerToBugContainerCnfg>
             </li>)
     }

@@ -40,7 +40,7 @@ const RoleCnfg = (props) => {
         const data = props.data.UsersRoles.slice();
         data[index] = {
             UsersRole: '',
-            delete: true
+            deleted: true
         }
         props.ChangesUsersRoles(props.index, data);
     }
