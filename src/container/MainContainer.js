@@ -32,7 +32,6 @@ class MainContainer extends Component {
     }
 
     onDropBugStageHandler = (event, newBugSpanIndex) => {
-        console.log(event)
         const bugSpans = this.state.BugSpans.slice();
         const dragFromContainerIndex = this.state.dragFromContainerIndex;
         const dragFromSpanIndex = this.state.dragFromSpanIndex;

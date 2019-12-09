@@ -3,47 +3,47 @@ import WorkspaceCnfg from './WorkspaceCnfg';
 import BugContainersCnfg from './BugContainers/BugContainersCnfg';
 import { connect } from 'react-redux'
 import BugTypesCnfg from './BugTypes/BugTypesCnfg';
-import { CHANGE_WORKSPACE_NAME } from '../reducers/reducerActions'
+import { CHANGE_WORKSPACE } from '../reducers/reducerActions'
 import UsersCnfg from './users/UsersCnfg';
 import RolesCnfg from './roles/RolesCnfg';
+import { withRouter } from 'react-router-dom'
 
 
 class MainCnfgContainer extends Component {
-    state = {
-        workSpaceName: 'workspacename',
-        Users: [],
-        Containers: []
 
-    }
     setWorkspaceName = (newWorkspaceName) => {
-        this.props.changeWorkSpace(this.state.workSpaceName, newWorkspaceName)
-        this.setState({
+        this.changeWorkSpace({
             workspaceName: newWorkspaceName
         })
     }
 
     changeUser = (index, newValue) => {
-        let newUsers = this.state.Users.slice()
+        let newUsers = this.props.WorkSpaceState.Users.slice()
         if (index === -1) {
             newUsers.push(newValue)
         } else {
             newUsers[index] = newValue
         }
-        this.setState({
+        this.changeWorkSpace({
             Users: newUsers
         })
     }
 
     changeContainer = (index, newValue) => {
-        let newContainers = this.state.Containers.slice();
+        let newContainers = this.props.WorkSpaceState.Containers.slice();
         if (index === -1) {
             newContainers.push(newValue)
         } else {
             newContainers[index] = newValue
         }
-        this.setState({
-            Containers: newContainers
-        })
+        this.changeWorkSpace(
+            {
+                Containers: newContainers
+            })
+    }
+
+    changeWorkSpace(newWorkspace) {
+        this.props.changeWorkSpace(this.props.WorkspaceId, { ...this.props.WorkSpaceState, ...newWorkspace })
     }
 
     render() {
@@ -51,20 +51,39 @@ class MainCnfgContainer extends Component {
 
             <div>
                 <WorkspaceCnfg setWorkspaceName={this.setWorkspaceName} ></WorkspaceCnfg>
-                <BugContainersCnfg bugContainers={this.state.Containers} changeContainer={this.changeContainer} workspaceName={this.state.workspaceName}></BugContainersCnfg>
-                <BugTypesCnfg bugContainers={this.state.Containers} workspaceName={this.state.workspaceName}></BugTypesCnfg>
-                <UsersCnfg Users={this.state.Users} changeUser={this.changeUser} workspaceName={this.state.workspaceName}></UsersCnfg>
-                <RolesCnfg Users={this.state.Users} workspaceName={this.state.workspaceName}></RolesCnfg>
+                <BugContainersCnfg bugContainers={this.props.WorkSpaceState.Containers} changeContainer={this.changeContainer} workspaceName={this.props.WorkSpaceState.workspaceName}></BugContainersCnfg>
+                <BugTypesCnfg bugContainers={this.props.WorkSpaceState.Containers} workspaceName={this.props.WorkSpaceState.workspaceName}></BugTypesCnfg>
+                <UsersCnfg Users={this.props.WorkSpaceState.Users} changeUser={this.changeUser} workspaceName={this.props.WorkSpaceState.workspaceName}></UsersCnfg>
+                <RolesCnfg Users={this.props.WorkSpaceState.Users} workspaceName={this.props.WorkSpaceState.workspaceName}></RolesCnfg>
             </div>
         )
     }
 }
 
+const mapStateToProps = (state, ownProps) => {
+    console.log(ownProps)
+    let newState = { ...ownProps }
+    if (ownProps.WorkspaceId === -1) {
+        newState.NewWorkspaceCnfg = true;
+        ownProps.WorkspaceId = state.MaxWorkspaceId
+    } else {
+        newState.NewWorkspaceCnfg = false;
+        newState.WorkSpaceState = state.cnfgReducer.workSpaces[Number(ownProps.match.params.id)];
+    }
+    return newState;
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeWorkSpace: (oldWorkSpaceName, newWorkspaceName) => dispatch({ type: CHANGE_WORKSPACE_NAME, oldWorkSpaceName: oldWorkSpaceName, newWorkspaceName: newWorkspaceName })
+        changeWorkSpace: (workspaceId, newWorkspaceState) => dispatch(
+            {
+                type: CHANGE_WORKSPACE,
+                workspaceId: workspaceId,
+                newWorkspaceNameState: newWorkspaceState
+            }
+        )
     }
 }
 
 
-export default connect(null, mapDispatchToProps)(MainCnfgContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainCnfgContainer));
