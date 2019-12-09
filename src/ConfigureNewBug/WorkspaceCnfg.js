@@ -8,7 +8,7 @@ const WorkSpaceCnfg = props => {
                 <input
                     name="workSpaceName"
                     type="text"
-                    defaultValue="WorkspaceName"
+                    value={props.workspaceName}
                     onChange={(event) => props.setWorkspaceName(event.target.value)}
                 />
             </form>

@@ -43,8 +43,11 @@ class Navbar extends Component {
             let eventKey = LoadCnfgStr + value.workspaceId
             return (
                 <NavItem key={value.workspaceId} eventKey={eventKey}>
+                    <NavIcon>
+                        <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
+                    </NavIcon>
                     <NavText style={{ paddingRight: 32 }} title={eventKey}>
-                        Configuration workSpace: {value.workSpaceName}
+                        {value.workspaceName}
                     </NavText>
                 </NavItem>
             )
@@ -54,7 +57,7 @@ class Navbar extends Component {
             <SideNav onSelect={this.onSelect} onToggle={this.onToggle}>
                 <SideNav.Toggle />
                 <SideNav.Nav selected={selected}>
-                    <NavItem eventKey="home">
+                    <NavItem eventKey="/home">
                         <NavIcon>
                             <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
                         </NavIcon>
@@ -113,7 +116,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
     let newState = { ...ownProps };
-    newState.workSpaces = state.cnfgReducer.workSpaces
+    newState.workSpaces = state.cnfgReducer.workSpaces.slice()
     newState.maxWorkSpaceID = state.cnfgReducer.maxWorkSpaceID
     return newState;
 }

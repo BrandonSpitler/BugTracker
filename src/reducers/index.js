@@ -18,7 +18,7 @@ const cnfgReducer = (
             newState.workSpaces.push(
                 {
                     workspaceId: newState.maxWorkSpaceID,
-                    workSpaceName: 'workspacename',
+                    workspaceName: 'New Workspace',
                     Users: [],
                     Containers: []
 
@@ -27,10 +27,10 @@ const cnfgReducer = (
             newState.maxWorkSpaceID++;
             return newState
         case Reducers.CHANGE_WORKSPACE:
-            newState.workSpaces[action.WorkspaceId] = action.newWorkspaceState
+            newState.workSpaces[action.workspaceId] = action.newWorkspaceState
+            console.log(action.newWorkspaceState)
             return newState
         case Reducers.CHANGE_CONTAINER:
-            newState = { ...state };
             newState[action.workspaceName].containers[action.index] = { ...action.newContainer };
             return newState;
         case Reducers.DELETE_CONTAINER:

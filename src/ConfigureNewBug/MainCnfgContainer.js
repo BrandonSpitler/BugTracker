@@ -43,14 +43,14 @@ class MainCnfgContainer extends Component {
     }
 
     changeWorkSpace(newWorkspace) {
-        this.props.changeWorkSpace(this.props.WorkspaceId, { ...this.props.WorkSpaceState, ...newWorkspace })
+        this.props.changeWorkSpace(this.props.workspaceId, { ...this.props.WorkSpaceState, ...newWorkspace })
     }
 
     render() {
         return (
 
             <div>
-                <WorkspaceCnfg setWorkspaceName={this.setWorkspaceName} ></WorkspaceCnfg>
+                <WorkspaceCnfg workspaceName={this.props.WorkSpaceState.workspaceName} setWorkspaceName={this.setWorkspaceName} ></WorkspaceCnfg>
                 <BugContainersCnfg bugContainers={this.props.WorkSpaceState.Containers} changeContainer={this.changeContainer} workspaceName={this.props.WorkSpaceState.workspaceName}></BugContainersCnfg>
                 <BugTypesCnfg bugContainers={this.props.WorkSpaceState.Containers} workspaceName={this.props.WorkSpaceState.workspaceName}></BugTypesCnfg>
                 <UsersCnfg Users={this.props.WorkSpaceState.Users} changeUser={this.changeUser} workspaceName={this.props.WorkSpaceState.workspaceName}></UsersCnfg>
@@ -63,13 +63,9 @@ class MainCnfgContainer extends Component {
 const mapStateToProps = (state, ownProps) => {
     console.log(ownProps)
     let newState = { ...ownProps }
-    if (ownProps.WorkspaceId === -1) {
-        newState.NewWorkspaceCnfg = true;
-        ownProps.WorkspaceId = state.MaxWorkspaceId
-    } else {
-        newState.NewWorkspaceCnfg = false;
-        newState.WorkSpaceState = state.cnfgReducer.workSpaces[Number(ownProps.match.params.id)];
-    }
+    newState.workspaceId = Number(ownProps.match.params.id)
+    newState.NewWorkspaceCnfg = false;
+    newState.WorkSpaceState = state.cnfgReducer.workSpaces[Number(ownProps.match.params.id)];
     return newState;
 }
 
@@ -79,7 +75,7 @@ const mapDispatchToProps = (dispatch) => {
             {
                 type: CHANGE_WORKSPACE,
                 workspaceId: workspaceId,
-                newWorkspaceNameState: newWorkspaceState
+                newWorkspaceState: newWorkspaceState
             }
         )
     }
