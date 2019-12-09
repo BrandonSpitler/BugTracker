@@ -69,3 +69,15 @@
 }
 
 /* Style the accordion panel. Note: hidden by default */
+
+.fp-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.sidebar {
+  width: 64px;
+}
+.fp-panel-main {
+  width: 100%;
+}

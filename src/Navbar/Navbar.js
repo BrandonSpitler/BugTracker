@@ -21,13 +21,13 @@ class Navbar extends Component {
             const path = generatePath('/LoadCnfg/:id', {
                 id: this.props.maxWorkSpaceID
             })
-            this.props.history.replace(path)
+            this.props.history.push(path)
         } else if (loadCnfgPos !== -1) {
             const index = selected.substring(loadCnfgPos + LoadCnfgStr.length, selected.length);
             const path = generatePath('/LoadCnfg/:id', { id: index })
-            this.props.history.replace(path)
+            this.props.history.push(path)
         } else {
-            this.props.history.replace(selected)
+            this.props.history.push(selected)
         }
     };
     onToggle = (expanded) => {
@@ -54,54 +54,56 @@ class Navbar extends Component {
         })
         const { expanded, selected } = this.state;
         return (
-            <SideNav onSelect={this.onSelect} onToggle={this.onToggle}>
-                <SideNav.Toggle />
-                <SideNav.Nav selected={selected}>
-                    <NavItem eventKey="/home">
-                        <NavIcon>
-                            <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
-                        </NavIcon>
-                        <NavText style={{ paddingRight: 32 }} title="Home">
-                            Home
+            <div className="BugTrackSideNav">
+                <SideNav onSelect={this.onSelect} onToggle={this.onToggle}>
+                    <SideNav.Toggle />
+                    <SideNav.Nav selected={selected}>
+                        <NavItem eventKey="/home">
+                            <NavIcon>
+                                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
+                            </NavIcon>
+                            <NavText style={{ paddingRight: 32 }} title="Home">
+                                Home
                         </NavText>
-                    </NavItem>
-                    <NavItem eventKey="NewCnfg">
-                        <NavIcon>
-                            <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
-                        </NavIcon>
-                        <NavText style={{ paddingRight: 32 }} title="NewCnfg">
-                            Create New Configuration
+                        </NavItem>
+                        <NavItem eventKey="NewCnfg">
+                            <NavIcon>
+                                <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
+                            </NavIcon>
+                            <NavText style={{ paddingRight: 32 }} title="NewCnfg">
+                                Create New Configuration
                         </NavText>
-                    </NavItem>
-                    {workSpaces}
-                    <NavItem eventKey="reports">
-                        <NavIcon>
-                            <i className="fa fa-fw fa-list-alt" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
-                        </NavIcon>
-                        <NavText style={{ paddingRight: 32 }} title="Reports">
-                            Reports
+                        </NavItem>
+                        {workSpaces}
+                        <NavItem eventKey="reports">
+                            <NavIcon>
+                                <i className="fa fa-fw fa-list-alt" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
+                            </NavIcon>
+                            <NavText style={{ paddingRight: 32 }} title="Reports">
+                                Reports
                         </NavText>
-                    </NavItem>
-                    <NavItem eventKey="settings">
-                        <NavIcon>
-                            <i className="fa fa-fw fa-cogs" style={{ fontSize: '1.5em', verticalAlign: 'middle' }} />
-                        </NavIcon>
-                        <NavText style={{ paddingRight: 32 }} title="Settings">
-                            Settings
+                        </NavItem>
+                        <NavItem eventKey="settings">
+                            <NavIcon>
+                                <i className="fa fa-fw fa-cogs" style={{ fontSize: '1.5em', verticalAlign: 'middle' }} />
+                            </NavIcon>
+                            <NavText style={{ paddingRight: 32 }} title="Settings">
+                                Settings
                         </NavText>
-                        <NavItem eventKey="settings/policies">
-                            <NavText title="Policies">
-                                Policies
+                            <NavItem eventKey="settings/policies">
+                                <NavText title="Policies">
+                                    Policies
                          </NavText>
-                        </NavItem>
-                        <NavItem eventKey="settings/network">
-                            <NavText title="Network">
-                                Network
+                            </NavItem>
+                            <NavItem eventKey="settings/network">
+                                <NavText title="Network">
+                                    Network
                             </NavText>
+                            </NavItem>
                         </NavItem>
-                    </NavItem>
-                </SideNav.Nav>
-            </SideNav>
+                    </SideNav.Nav>
+                </SideNav>
+            </div>
         )
     }
 }
