@@ -32,7 +32,6 @@ function App() {
 
             <header className="App-header">
               <Switch>
-
                 <Route path="/NewCnfg/:id">
                   <MainCnfgContainer></MainCnfgContainer>
                 </Route>
