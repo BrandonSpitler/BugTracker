@@ -63,6 +63,10 @@ func TestJsonCnfgLoad(t *testing.T) {
 	if !orginalTestJsonStruct.equal(newTestStruct) {
 		t.Error("data structures where not equal")
 	}
+	err = os.Remove(testTempFile)
+	if err != nil {
+		t.Error("failed to delete testTemp file withe error ", err)
+	}
 }
 
 func writeJsonTestFile(testCnfg testCnfg) (err error) {

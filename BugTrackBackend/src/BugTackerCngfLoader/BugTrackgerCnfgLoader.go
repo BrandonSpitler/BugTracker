@@ -1,8 +1,11 @@
 package bugtackercngfloader
 
 import (
-	"HYDRA/filehandler/decoders"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"log"
+	"os"
 	"reflect"
 )
 
@@ -17,6 +20,22 @@ func LoadJsonConfiguration(obj interface{}, filename string) (err error) {
 	if mysRValue.Kind() != reflect.Struct {
 		return wrongTypeError
 	}
-	err = decoders.DecodeJSONConfig(obj, filename)
+	err = DecodeJSONConfig(obj, filename)
 	return err
+}
+
+func DecodeJSONConfig(v interface{}, fileName string) error {
+	fmt.Println("Decoding JSON")
+	file, err := os.Open(fileName)
+	defer func() {
+		err := file.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+	if err != nil {
+		return err
+	}
+
+	return json.NewDecoder(file).Decode(v)
 }
