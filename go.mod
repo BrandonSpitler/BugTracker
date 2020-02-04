@@ -1,4 +1,4 @@
-module BugTracker/BugTrackBackend/src
+module BugTracker/
 
 go 1.13
 

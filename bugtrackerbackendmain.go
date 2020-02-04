@@ -3,7 +3,7 @@ package src
 import (
 	"fmt"
 
-	_ "BugTracker/BugTrackBackend/src/bugtackercngfloader"
+	_ "../src/bugtackercngfloader"
 )
 
 func main() {
