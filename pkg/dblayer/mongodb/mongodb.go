@@ -17,7 +17,7 @@ type MongoDB struct {
 
 func connect(cnfgFile string) (*MongoDB, error) {
 	mongo := new(MongoDB)
-	configloader.LoadJsonConfiguration("", "")
+	configloader.LoadJsonConfiguration(&mongo, cnfgFile)
 
 	db, err := mgo.Dial(conn)
 	if err != nil {
