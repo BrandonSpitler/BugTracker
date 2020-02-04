@@ -1,4 +1,4 @@
-package bug-tracker-cnfg-loader
+package configloader
 
 import (
 	"encoding/json"

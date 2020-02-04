@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/brandonspitler/bug-tracker/pkg/bugtackercngfloader"
+	"github.com/brandonspitler/bug-tracker/pkg/configloader"
 	"gopkg.in/mgo.v2"
 )
 
@@ -17,8 +17,7 @@ type MongoDB struct {
 
 func connect(cnfgFile string) (*MongoDB, error) {
 	mongo := new(MongoDB)
-	bugtackercngfloader.LoadJsonConfiguration("", "")
-	LoadJsonConfiguration(mongo, cnfgFile)
+	configloader.LoadJsonConfiguration("", "")
 
 	db, err := mgo.Dial(conn)
 	if err != nil {

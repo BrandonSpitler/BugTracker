@@ -1,4 +1,4 @@
-package bugtackercngfloader
+package configloader
 
 import (
 	"encoding/json"
