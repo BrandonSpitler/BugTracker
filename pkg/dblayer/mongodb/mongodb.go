@@ -1,10 +1,10 @@
 package mongodb
 
 import (
-	_ "bugtrackercngfloader"
 	"errors"
 	"fmt"
 
+	"github.com/brandonspitler/bug-tracker/pkg/bugtackercngfloader"
 	"gopkg.in/mgo.v2"
 )
 
@@ -17,6 +17,7 @@ type MongoDB struct {
 
 func connect(cnfgFile string) (*MongoDB, error) {
 	mongo := new(MongoDB)
+	bugtackercngfloader.LoadJsonConfiguration("", "")
 	LoadJsonConfiguration(mongo, cnfgFile)
 
 	db, err := mgo.Dial(conn)

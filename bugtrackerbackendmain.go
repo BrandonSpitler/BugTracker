@@ -3,10 +3,10 @@ package src
 import (
 	"fmt"
 
-	_ "../src/bugtackercngfloader"
+	"github.com/brandonspitler/bug-tracker/pkg/bugtackercngfloader"
 )
 
 func main() {
 	fmt.Println("TODO")
-
+	bugtackercngfloader.LoadJsonConfiguration("", "")
 }

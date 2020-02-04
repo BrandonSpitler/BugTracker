@@ -1,4 +1,4 @@
-package bugtackercngfloader
+package bug-tracker-cnfg-loader
 
 import (
 	"encoding/json"

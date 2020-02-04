@@ -1,4 +1,4 @@
-module BugTracker/
+module github.com/brandonspitler/bug-tracker
 
 go 1.13
 
