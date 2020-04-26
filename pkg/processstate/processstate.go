@@ -2,7 +2,7 @@ package processsharedstate
 
 type ProcessSate struct {
 	logState       logState
-	dbState        dbState
+	dbState        dbTransInterface
 	childProcesses []*ProcessSate
 	parentProcess  *ProcessSate
 }
