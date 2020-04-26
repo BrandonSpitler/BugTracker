@@ -3,6 +3,7 @@ package bugtrackdblayer
 import (
 	"github.com/brandonspitler/bug-tracker/pkg/configloader"
 	"github.com/brandonspitler/bug-tracker/pkg/dblayer"
+	"github.com/brandonspitler/bug-tracker/pkg/dblayer/dblayer"
 )
 
 type Databases []dblayer.Database
