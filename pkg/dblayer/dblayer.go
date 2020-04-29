@@ -1,13 +1,12 @@
 package dblayer
 
 import (
+	"fmt"
 	"log"
 )
 
 type Database struct {
-	DatabaseName string
-	DatabaseType string
-	DbActions    DatabaseActions
+	DbActions DatabaseActions
 }
 
 type QueryParams struct {
@@ -16,52 +15,39 @@ type QueryParams struct {
 }
 
 type Connector interface {
-	Connect(cnfgFile string) (Database, error)
+	Connect() (DatabaseActions, error)
 }
 
-var registeredDatabasesServers = make(map[string]Database)
+var registeredDatabasesServers = make(map[string]*DatabaseActions)
 var registeredDataBaseTypes = make(map[string]Connector)
 
 type QueryErrorHandle interface {
 	QueryErrorHandle()
 }
 
-func RegisterDataBaseType(Type string, dbConnector Connector) {
-	if Type == "" {
-		log.Fatal("Can not have type of nothing")
+func registerDatabaseServer(Name string, dbActions DatabaseActions) {
+	if Name == "" {
+		log.Fatal("Can not have Name of nothing")
 	}
-	_, ok := registeredDataBaseTypes[Type]
+	_, ok := registeredDatabasesServers[Name]
 	if ok {
-		log.Fatal("database type", Type, "already exists")
+		log.Fatal("database Named", Name, "already exists")
 	}
+	registeredDatabasesServers[Name] = new(DatabaseActions)
 }
 
-// todo split these interfaces out
-type DatabaseActions interface {
-	Query(QueryParams, ...QueryErrorHandle)
-	Commit(...QueryErrorHandle)
-	Rollback()
-	QueueQuery(QueryParams, ...QueryErrorHandle)
-}
+func GetDataBaseServer(Name string) (*DatabaseActions, error) {
+	databaseActions, ok := registeredDatabasesServers[Name]
 
-func DatabaseFactory(databaseCnfgFile string, serverName string, dbType string) (Database, error) {
-	if serverName == "" || databaseCnfgFile == "" {
-		log.Fatal("server name:", serverName, " or database config file: ", databaseCnfgFile, "should not be nothing")
-	}
-
-	_, ok := registeredDatabasesServers[serverName]
-	if ok {
-		log.Fatal("server with the server name", serverName, "already exists")
-	}
-
-	server, ok := registeredDataBaseTypes[dbType]
 	if !ok {
-		log.Fatal("database of type", dbType, "is not registered")
+		return nil, fmt.Errorf("database not found %s", Name)
 	}
+	return databaseActions, nil
+}
 
-	db, err := server.Connect(databaseCnfgFile)
-	if err == nil {
-		registeredDatabasesServers[serverName] = db
-	}
-	return db, err
+type DatabaseActions interface {
+	Query(Results *[]interface{},
+		Query interface{}) (err error)
+	Commit()
+	Rollback()
 }
